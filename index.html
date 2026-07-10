@@ -67,10 +67,12 @@
   .project { display: grid; grid-template-columns: 1fr; gap: 18px; margin-bottom: 56px; }
   .project:last-child { margin-bottom: 0; }
   @media (min-width: 720px) {
-    .project { grid-template-columns: 5fr 4fr; gap: 32px; align-items: start; }
+    .project { grid-template-columns: 1fr 1fr; gap: 32px; align-items: stretch; }
     .project.flip .media-block { order: -1; }
     .project.nomedia { grid-template-columns: 1fr; }
     .project.nomedia > div { max-width: 640px; }
+    .media-block { display: flex; flex-direction: column; }
+    .media-block .carousel { flex: 1; aspect-ratio: auto; min-height: 300px; }
   }
   .project h3 { font-size: 1.28rem; letter-spacing: -0.01em; margin-bottom: 4px; }
   .meta { font-size: 0.85rem; color: var(--accent); font-weight: 600; margin-bottom: 12px; }
@@ -96,7 +98,8 @@
   }
   .slide { position: absolute; inset: 0; display: none; }
   .slide.active { display: block; }
-  .slide video, .slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .slide video { width: 100%; height: 100%; object-fit: contain; background: #000; display: block; }
   .slide.contain img { object-fit: contain; background: #fff; }
   .slide a { display: block; width: 100%; height: 100%; }
   .car-nav {
@@ -341,15 +344,16 @@
           which means I can design the hardware, simulate it, collect the data, and train the policy that runs on it.
         </p>
         <p>
-          The summer after my sophomore year, I was selected for a fully funded 16-student nationwide cohort in an
-          Apple-sponsored machine learning program at USC, capped by a hand-picked research project on graph
-          recurrent neural networks presented to USC faculty and Apple engineers.
+          The summer after my sophomore year, I was selected as a NACME Scholar for the Apple Pathways
+          Initiative at USC — a fully funded, 16-student nationwide machine learning cohort — capped by a
+          hand-picked research project on graph recurrent neural networks presented to USC faculty and
+          Apple engineers.
         </p>
       </div>
       <ul class="fact-list">
         <li><strong>Currently</strong>Robotics Engineer, Sensori Robotics</li>
         <li><strong>Education</strong>B.S. Mechanical Engineering, Texas A&amp;M, 2026 — summa cum laude</li>
-        <li><strong>Research</strong>Apple-sponsored ML program, USC (2024)</li>
+        <li><strong>Research</strong>NACME Scholar, Apple Pathways Initiative — USC (2024)</li>
         <li><strong>Focus</strong>Robot learning, sim-to-real, mechanical design</li>
       </ul>
     </div>
