@@ -159,16 +159,6 @@
     </div>
   </header>
 
-  <section id="reel">
-    <h2>Highlight Reel</h2>
-    <div class="featured-video">
-      <iframe src="https://www.youtube-nocookie.com/embed/IEHpABjRHOE" title="Parker Sepulvado — robotics highlight reel"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen loading="lazy"></iframe>
-    </div>
-    <p class="featured-caption">A quick tour of recent work — details on each project below.</p>
-  </section>
-
   <section id="work">
     <h2>Selected Work</h2>
 
@@ -263,15 +253,15 @@
 
     <div class="project flip">
       <div>
-        <h3>Custom PCB &amp; Dual-Core Embedded Mecanum Robot</h3>
+        <h3>Custom PCB Mecanum Robot &amp; Wireless Controller</h3>
         <div class="meta">Personal Project &middot; Fall 2025</div>
         <p>
-          A ground-up mecanum robot: custom multi-layer motor control board, ultrasonic sensing, and
-          <strong>memory-safe async firmware in Rust</strong> on the Embassy runtime, running deterministic
-          1&nbsp;kHz control loops across dual ESP32-S3 cores over CAN bus.
+          A ground-up mecanum robot with a <strong>matching handheld wireless controller</strong> — both built on
+          custom PCBs with an RF radio link. C++ firmware on an Arduino Mega implements mecanum-wheel kinematics,
+          motor control, and ultrasonic sensing for obstacle avoidance.
         </p>
         <div class="tags">
-          <span>Rust</span><span>Embassy</span><span>ESP32-S3</span><span>CAN Bus</span>
+          <span>C++</span><span>Arduino Mega</span><span>RF</span><span>Custom PCBs</span>
         </div>
         <div class="doc-links">
           <a href="assets/robot-wiring.pdf" target="_blank" rel="noopener">Robot wiring diagram (PDF)</a>
@@ -280,9 +270,13 @@
       </div>
       <div class="media-stack">
         <figure class="media-main">
-          <a href="assets/robot-wiring.pdf" target="_blank" rel="noopener"><img src="assets/mecanum-wiring.jpg" alt="Mecanum robot wiring diagram" loading="lazy"></a>
-          <figcaption>Robot wiring diagram — click to open PDF</figcaption>
+          <iframe src="https://www.youtube-nocookie.com/embed/IEHpABjRHOE?mute=1" title="Mecanum robot with custom wireless controller"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen loading="lazy" style="width:100%;height:100%;border:0;display:block;"></iframe>
         </figure>
+        <div class="thumbs">
+          <figure class="thumb"><a href="assets/robot-wiring.pdf" target="_blank" rel="noopener"><img src="assets/mecanum-wiring.jpg" alt="Mecanum robot wiring diagram" loading="lazy"></a><figcaption>Wiring diagram — click for PDF</figcaption></figure>
+        </div>
       </div>
     </div>
 
@@ -378,7 +372,7 @@
       </div>
       <div class="skill-group">
         <h3>Software &amp; Hardware</h3>
-        <p>Python, C++, Rust, Docker, Linux, Git, Jetson Orin/AGX, ESP32-S3, Arduino</p>
+        <p>Python, C++, Docker, Linux, Git, Jetson Orin/AGX, Arduino</p>
       </div>
     </div>
   </section>
