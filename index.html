@@ -75,6 +75,8 @@
   @media (min-width: 720px) {
     .project { grid-template-columns: 5fr 4fr; gap: 32px; align-items: start; }
     .project.flip .media-stack { order: -1; }
+    .project.nomedia { grid-template-columns: 1fr; }
+    .project.nomedia > div { max-width: 640px; }
   }
   .project h3 { font-size: 1.28rem; letter-spacing: -0.01em; margin-bottom: 4px; }
   .meta { font-size: 0.85rem; color: var(--accent); font-weight: 600; margin-bottom: 12px; }
@@ -280,7 +282,7 @@
       </div>
     </div>
 
-    <div class="project">
+    <div class="project nomedia">
       <div>
         <h3>Rocket Engine Flame Diverter</h3>
         <div class="meta">Team Lead &middot; TAMU Rocket Engine Design Team &middot; 2025</div>
@@ -291,14 +293,6 @@
         </p>
         <div class="tags">
           <span>ANSYS</span><span>Thermal FEA</span><span>Structural FEA</span><span>Leadership</span>
-        </div>
-      </div>
-      <div class="media-stack">
-        <div class="media-main">
-          <div class="placeholder">
-            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.5-3.5L6 23"/></svg>
-            Renders &amp; analysis images coming soon
-          </div>
         </div>
       </div>
     </div>
