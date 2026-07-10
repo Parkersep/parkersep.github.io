@@ -63,28 +63,52 @@
     color: var(--muted); font-weight: 600; margin-bottom: 30px;
   }
 
-  .project { display: grid; grid-template-columns: 1fr; gap: 18px; margin-bottom: 52px; }
+  .featured-video {
+    border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line);
+    aspect-ratio: 16 / 9; background: var(--surface);
+  }
+  .featured-video iframe { width: 100%; height: 100%; display: block; border: 0; }
+  .featured-caption { margin-top: 12px; color: var(--muted); font-size: 0.92rem; }
+
+  .project { display: grid; grid-template-columns: 1fr; gap: 18px; margin-bottom: 56px; }
   .project:last-child { margin-bottom: 0; }
   @media (min-width: 720px) {
     .project { grid-template-columns: 5fr 4fr; gap: 32px; align-items: start; }
-    .project.flip .media-slot { order: -1; }
+    .project.flip .media-stack { order: -1; }
   }
   .project h3 { font-size: 1.28rem; letter-spacing: -0.01em; margin-bottom: 4px; }
   .meta { font-size: 0.85rem; color: var(--accent); font-weight: 600; margin-bottom: 12px; }
   .project p { color: var(--muted); font-size: 0.98rem; margin-bottom: 12px; }
   .project p strong { color: var(--text); font-weight: 600; }
-  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
   .tags span {
     font-size: 0.78rem; padding: 3px 10px; border-radius: 999px;
     background: var(--accent-soft); color: var(--accent); font-weight: 500;
   }
-
-  .media-slot {
-    border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line);
-    background: var(--surface); aspect-ratio: 16 / 10; position: relative;
+  .doc-links { display: flex; flex-wrap: wrap; gap: 8px; }
+  .doc-links a {
+    font-size: 0.85rem; color: var(--accent); text-decoration: none;
+    border: 1px solid var(--line); border-radius: 6px; padding: 5px 10px;
+    background: var(--surface); font-weight: 500;
   }
-  .media-slot video, .media-slot img {
+  .doc-links a:hover { border-color: var(--accent); }
+
+  .media-stack { display: grid; gap: 10px; }
+  .media-main, .thumb {
+    border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line);
+    background: var(--surface); position: relative;
+  }
+  .media-main { aspect-ratio: 16 / 10; }
+  .media-main video, .media-main img, .thumb video, .thumb img {
     width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .thumbs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .thumb { aspect-ratio: 16 / 10; }
+  .thumb figcaption, .media-main figcaption {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    font-size: 0.72rem; padding: 3px 8px; color: #fff;
+    background: linear-gradient(transparent, rgba(0,0,0,0.65));
+    pointer-events: none;
   }
   .placeholder {
     position: absolute; inset: 0; display: flex; flex-direction: column;
@@ -135,6 +159,16 @@
     </div>
   </header>
 
+  <section id="reel">
+    <h2>Highlight Reel</h2>
+    <div class="featured-video">
+      <iframe src="https://www.youtube-nocookie.com/embed/IEHpABjRHOE" title="Parker Sepulvado — robotics highlight reel"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen loading="lazy"></iframe>
+    </div>
+    <p class="featured-caption">A quick tour of recent work — details on each project below.</p>
+  </section>
+
   <section id="work">
     <h2>Selected Work</h2>
 
@@ -143,54 +177,91 @@
         <h3>Bimanual Manipulation Platform</h3>
         <div class="meta">Sensori Robotics &middot; 2026</div>
         <p>
-          I own the <strong>mechanical design, assembly, and BOM</strong> for a bimanual robot built on the
-          open-source OpenArm design, shipping in 2026 — a complete desktop platform with onboard compute for
+          I own the <strong>mechanical design, assembly, and BOM</strong> for "Yuri," our bimanual robot built on
+          the open-source OpenArm design, shipping in 2026 — a complete desktop platform with onboard compute for
           out-of-the-box teleoperation data collection and VLA fine-tuning.
         </p>
         <p>
           I generate URDF/USD assets straight from the Onshape assembly for a high-fidelity Isaac Lab digital
-          twin, collect demonstrations through Meta Quest 3 teleoperation scaled with Isaac Mimic, and fine-tune
-          foundation models (NVIDIA GR00T, &pi;<sub>0</sub>, xVLA) for closed-loop evaluation in Isaac Sim.
+          twin. The main video shows our custom variant performing vial placement.
         </p>
         <div class="tags">
           <span>Onshape</span><span>Isaac Lab</span><span>IsaacTeleop</span><span>GR00T</span><span>Imitation Learning</span>
         </div>
       </div>
-      <div class="media-slot" data-video="assets/bimanual.mp4" data-image="assets/bimanual.jpg">
-        <div class="placeholder">
-          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m10 9 5 3-5 3z"/></svg>
-          Demo video coming soon
+      <div class="media-stack">
+        <figure class="media-main">
+          <video src="assets/vial-stack.mp4" poster="assets/vial-stack-poster.jpg" controls muted playsinline preload="metadata"></video>
+          <figcaption>Custom OpenArm variant — autonomous vial placement</figcaption>
+        </figure>
+        <div class="thumbs">
+          <figure class="thumb"><img src="assets/yuri-render.jpg" alt="Rendered CAD assembly of the Yuri bimanual robot" loading="lazy"><figcaption>Full assembly render</figcaption></figure>
+          <figure class="thumb"><img src="assets/yuri-photo.jpg" alt="The physical Yuri bimanual robot" loading="lazy"><figcaption>The real robot</figcaption></figure>
         </div>
       </div>
     </div>
 
     <div class="project flip">
       <div>
-        <h3>Autonomous Landscaping Robots</h3>
-        <div class="meta">Sensori Robotics &middot; 2025–2026</div>
+        <h3>Teleoperation &amp; Robot Foundation Models</h3>
+        <div class="meta">Sensori Robotics &middot; 2026</div>
         <p>
-          During a year-long co-op I assembled and integrated Sensori's autonomous landscaping robot, delivered
-          <strong>live demonstrations to investors and partner executives</strong>, and validated systems in the
-          field with early customers.
+          I built the <strong>teleoperation pipeline in Isaac Sim</strong> for collecting manipulation
+          demonstrations with the stock OpenArm, and use it to fine-tune and evaluate robot foundation models.
         </p>
         <p>
-          I also built a separate autonomous lawn-blowing robot on a Unitree Go2W quadruped that assists
-          landscaping crews as they work — ROS 2, fine-tuned YOLO perception, containerized deployment on
-          Jetson Orin, with the locomotion policy recreated in Isaac Lab for sim validation before field runs.
+          The main video shows <strong>autonomous pick-and-place with a GR00T N1.7 policy on a Unitree G1</strong>.
+          For longer-horizon, medium-complexity tasks we're evaluating world-action-model architectures, where
+          short-horizon VLA policies start to break down.
         </p>
         <div class="tags">
-          <span>ROS 2</span><span>YOLO</span><span>Jetson Orin</span><span>Unitree Go2W</span><span>Isaac Sim</span>
+          <span>Isaac Sim</span><span>Teleoperation</span><span>GR00T N1.7</span><span>Unitree G1</span><span>World Models</span>
         </div>
       </div>
-      <div class="media-slot" data-video="assets/quadruped.mp4" data-image="assets/quadruped.jpg">
-        <div class="placeholder">
-          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m10 9 5 3-5 3z"/></svg>
-          Field footage coming soon
+      <div class="media-stack">
+        <figure class="media-main">
+          <video src="assets/g1-groot-pick-place.mp4" poster="assets/g1-groot-pick-place-poster.jpg" controls muted playsinline preload="metadata"></video>
+          <figcaption>GR00T N1.7 policy — autonomous pick-and-place on Unitree G1</figcaption>
+        </figure>
+        <div class="thumbs">
+          <figure class="thumb"><video src="assets/teleop-stacking.mp4" poster="assets/teleop-stacking-poster.jpg" controls muted playsinline preload="metadata"></video><figcaption>Teleop stacking demo — stock OpenArm</figcaption></figure>
         </div>
       </div>
     </div>
 
     <div class="project">
+      <div>
+        <h3>Autonomous Landscaping Robots</h3>
+        <div class="meta">Sensori Robotics &middot; 2025–2026</div>
+        <p>
+          During a year-long co-op I assembled and field-tested Sensori's <strong>autonomous lawnmower</strong>,
+          delivered live demonstrations to investors and partner executives, and validated systems with early
+          customers.
+        </p>
+        <p>
+          I also built an autonomous lawn-blowing robot on a Unitree Go2W quadruped that assists crews as they
+          work — ROS 2, fine-tuned YOLO perception, deployed on Jetson Orin — recreated the Go2W locomotion
+          policy in Isaac Lab, and prototyped a <strong>procedural edge-mowing system</strong> that follows grass
+          boundaries without pre-mapping.
+        </p>
+        <div class="tags">
+          <span>ROS 2</span><span>YOLO</span><span>Jetson Orin</span><span>Unitree Go2W</span><span>Isaac Lab</span>
+        </div>
+      </div>
+      <div class="media-stack">
+        <figure class="media-main">
+          <video src="assets/go2w-blower.mp4" poster="assets/go2w-blower-poster.jpg" controls muted playsinline preload="metadata"></video>
+          <figcaption>Autonomous lawn-blowing on the Go2W quadruped</figcaption>
+        </figure>
+        <div class="thumbs">
+          <figure class="thumb"><img src="assets/mower.jpg" alt="Autonomous lawnmower" loading="lazy"><figcaption>The autonomous lawnmower</figcaption></figure>
+          <figure class="thumb"><video src="assets/go2w-locomotion.mp4" poster="assets/go2w-locomotion-poster.jpg" controls muted playsinline preload="metadata"></video><figcaption>Recreated locomotion policy in sim</figcaption></figure>
+          <figure class="thumb"><video src="assets/edge-mowing.mp4" poster="assets/edge-mowing-poster.jpg" controls muted playsinline preload="metadata"></video><figcaption>Procedural edge-mowing proof of concept</figcaption></figure>
+        </div>
+      </div>
+    </div>
+
+    <div class="project flip">
       <div>
         <h3>Custom PCB &amp; Dual-Core Embedded Mecanum Robot</h3>
         <div class="meta">Personal Project &middot; Fall 2025</div>
@@ -202,16 +273,20 @@
         <div class="tags">
           <span>Rust</span><span>Embassy</span><span>ESP32-S3</span><span>CAN Bus</span>
         </div>
-      </div>
-      <div class="media-slot" data-video="assets/mecanum.mp4" data-image="assets/mecanum.jpg">
-        <div class="placeholder">
-          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m10 9 5 3-5 3z"/></svg>
-          Demo video coming soon
+        <div class="doc-links">
+          <a href="assets/robot-wiring.pdf" target="_blank" rel="noopener">Robot wiring diagram (PDF)</a>
+          <a href="assets/controller-wiring.pdf" target="_blank" rel="noopener">Controller wiring diagram (PDF)</a>
         </div>
+      </div>
+      <div class="media-stack">
+        <figure class="media-main">
+          <a href="assets/robot-wiring.pdf" target="_blank" rel="noopener"><img src="assets/mecanum-wiring.jpg" alt="Mecanum robot wiring diagram" loading="lazy"></a>
+          <figcaption>Robot wiring diagram — click to open PDF</figcaption>
+        </figure>
       </div>
     </div>
 
-    <div class="project flip">
+    <div class="project">
       <div>
         <h3>Rocket Engine Flame Diverter</h3>
         <div class="meta">Team Lead &middot; TAMU Rocket Engine Design Team &middot; 2025</div>
@@ -224,15 +299,17 @@
           <span>ANSYS</span><span>Thermal FEA</span><span>Structural FEA</span><span>Leadership</span>
         </div>
       </div>
-      <div class="media-slot" data-video="assets/flame-diverter.mp4" data-image="assets/flame-diverter.jpg">
-        <div class="placeholder">
-          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.5-3.5L6 23"/></svg>
-          Renders &amp; analysis images coming soon
+      <div class="media-stack">
+        <div class="media-main">
+          <div class="placeholder">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.5-3.5L6 23"/></svg>
+            Renders &amp; analysis images coming soon
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="project">
+    <div class="project flip">
       <div>
         <h3>Wearable HFCWO Medical Device</h3>
         <div class="meta">Project Lead &middot; Senior Capstone &middot; 2025–2026</div>
@@ -245,12 +322,15 @@
         <div class="tags">
           <span>Pneumatics</span><span>PI Control</span><span>Arduino</span><span>Medical Device</span>
         </div>
-      </div>
-      <div class="media-slot" data-video="assets/hfcwo.mp4" data-image="assets/hfcwo.jpg">
-        <div class="placeholder">
-          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.5-3.5L6 23"/></svg>
-          Photos coming soon
+        <div class="doc-links">
+          <a href="assets/hfcwo-presentation.pdf" target="_blank" rel="noopener">Final presentation (PDF)</a>
         </div>
+      </div>
+      <div class="media-stack">
+        <figure class="media-main">
+          <a href="assets/hfcwo-presentation.pdf" target="_blank" rel="noopener"><img src="assets/hfcwo.jpg" alt="HFCWO final presentation title slide" loading="lazy"></a>
+          <figcaption>Final presentation — click to open PDF</figcaption>
+        </figure>
       </div>
     </div>
 
@@ -317,34 +397,6 @@
   </footer>
 
 </div>
-
-<script>
-  // Each .media-slot declares data-video / data-image paths. If the file exists,
-  // swap it in; otherwise keep the "coming soon" placeholder.
-  document.querySelectorAll('.media-slot').forEach(slot => {
-    const videoSrc = slot.dataset.video;
-    const imageSrc = slot.dataset.image;
-    const tryImage = () => {
-      if (!imageSrc) return;
-      const img = new Image();
-      img.onload = () => {
-        img.alt = ''; img.loading = 'lazy';
-        slot.innerHTML = ''; slot.appendChild(img);
-      };
-      img.src = imageSrc;
-    };
-    if (videoSrc) {
-      fetch(videoSrc, { method: 'HEAD' }).then(r => {
-        if (r.ok) {
-          const v = document.createElement('video');
-          v.src = videoSrc; v.controls = true; v.muted = true;
-          v.playsInline = true; v.preload = 'metadata';
-          slot.innerHTML = ''; slot.appendChild(v);
-        } else { tryImage(); }
-      }).catch(tryImage);
-    } else { tryImage(); }
-  });
-</script>
 
 </body>
 </html>

@@ -1,35 +1,40 @@
 # parkersep.github.io
 
 Personal portfolio site, published via GitHub Pages at https://parkersep.github.io
+Unlisted: `noindex` meta + `robots.txt` keep it out of search engines; anyone with the link can view.
 
-## Adding videos and images
+## Current media (in `assets/`)
 
-Drop files into `assets/` with these exact names — the site picks them up automatically
-(video preferred, image used as fallback if no video exists):
-
-| Project | Video | Image fallback |
+| Slot | File | Source |
 |---|---|---|
-| Bimanual Manipulation Platform | `assets/bimanual.mp4` | `assets/bimanual.jpg` |
-| Autonomous Landscaping Robots | `assets/quadruped.mp4` | `assets/quadruped.jpg` |
-| Mecanum Robot | `assets/mecanum.mp4` | `assets/mecanum.jpg` |
-| Flame Diverter | `assets/flame-diverter.mp4` | `assets/flame-diverter.jpg` |
-| HFCWO Device | `assets/hfcwo.mp4` | `assets/hfcwo.jpg` |
+| Bimanual — main video | `vial-stack.mp4` | Custom OpenArm variant vial placement |
+| Bimanual — thumbs | `yuri-render.jpg`, `yuri-photo.jpg` | Render + real photo |
+| Foundation models — main | `g1-groot-pick-place.mp4` | GR00T N1.7 on Unitree G1 |
+| Foundation models — thumb | `teleop-stacking.mp4` | Isaac Sim teleop, stock OpenArm |
+| Landscaping — main | `go2w-blower.mp4` | Autonomous lawn blowing |
+| Landscaping — thumbs | `mower.jpg`, `go2w-locomotion.mp4`, `edge-mowing.mp4` | Mower photo, sim locomotion, edge-mowing PoC |
+| Mecanum | `mecanum-wiring.jpg` + `robot-wiring.pdf`, `controller-wiring.pdf` | Wiring diagrams |
+| HFCWO | `hfcwo.jpg` + `hfcwo-presentation.pdf` | Final presentation |
+| Flame diverter | *(placeholder — add `flame-diverter.jpg` and update index.html)* | |
 
-Then commit and push:
+Highlight reel is a YouTube embed (video ID `IEHpABjRHOE`) in `index.html`.
+
+## Adding / replacing media
+
+Videos: keep under ~25 MB, strip audio, 720p30 is plenty. Compress with:
 
 ```bash
-git add assets/ && git commit -m "Add project media" && git push
+ffmpeg -i input.mp4 -vf "scale=1280:-2,fps=30" -c:v libx264 -crf 27 -preset medium -an -movflags +faststart output.mp4
 ```
 
-**Video guidelines:** keep each mp4 under ~25 MB (GitHub hard-limits files at 100 MB and
-the repo stays fast to load). 30–60 seconds, 1080p, H.264. To compress:
+Poster frame for a video:
 
 ```bash
-ffmpeg -i input.mp4 -vcodec libx264 -crf 28 -preset slow -an -vf scale=1280:-2 output.mp4
+ffmpeg -ss 5 -i video.mp4 -vframes 1 -q:v 4 video-poster.jpg
 ```
 
-## Before adding work footage
+Then reference the files in `index.html`, and:
 
-Get Sensori's OK before publishing videos/photos of the bimanual platform or the
-landscaping robots — they're unreleased products tied to a pending licensing deal.
-Personal projects (mecanum, flame diverter, capstone) need no permission.
+```bash
+git add -A && git commit -m "Update media" && git push
+```
