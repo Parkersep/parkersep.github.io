@@ -62,19 +62,13 @@
     font-size: 0.85rem; letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--muted); font-weight: 600; margin-bottom: 30px;
   }
-
-  .featured-video {
-    border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line);
-    aspect-ratio: 16 / 9; background: var(--surface);
-  }
-  .featured-video iframe { width: 100%; height: 100%; display: block; border: 0; }
-  .featured-caption { margin-top: 12px; color: var(--muted); font-size: 0.92rem; }
+  .section-note { margin: -18px 0 30px; color: var(--muted); font-size: 0.92rem; }
 
   .project { display: grid; grid-template-columns: 1fr; gap: 18px; margin-bottom: 56px; }
   .project:last-child { margin-bottom: 0; }
   @media (min-width: 720px) {
     .project { grid-template-columns: 5fr 4fr; gap: 32px; align-items: start; }
-    .project.flip .media-stack { order: -1; }
+    .project.flip .media-block { order: -1; }
     .project.nomedia { grid-template-columns: 1fr; }
     .project.nomedia > div { max-width: 640px; }
   }
@@ -95,29 +89,37 @@
   }
   .doc-links a:hover { border-color: var(--accent); }
 
-  .media-stack { display: grid; gap: 10px; }
-  .media-main, .thumb {
-    border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line);
-    background: var(--surface); position: relative;
+  /* Carousel: one full-size frame per card, arrows + dots, caption below */
+  .carousel {
+    position: relative; border-radius: var(--radius); overflow: hidden;
+    border: 1px solid var(--line); background: var(--surface); aspect-ratio: 16 / 10;
   }
-  .media-main { aspect-ratio: 16 / 10; }
-  .media-main video, .media-main img, .thumb video, .thumb img {
-    width: 100%; height: 100%; object-fit: cover; display: block;
+  .slide { position: absolute; inset: 0; display: none; }
+  .slide.active { display: block; }
+  .slide video, .slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .slide.contain img { object-fit: contain; background: #fff; }
+  .slide a { display: block; width: 100%; height: 100%; }
+  .car-nav {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 5;
+    width: 38px; height: 38px; border-radius: 50%; border: 0; cursor: pointer;
+    background: rgba(0,0,0,0.45); color: #fff; font-size: 1.35rem; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .15s;
   }
-  .thumbs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .thumb { aspect-ratio: 16 / 10; }
-  .thumb figcaption, .media-main figcaption {
-    position: absolute; left: 0; right: 0; bottom: 0;
-    font-size: 0.72rem; padding: 3px 8px; color: #fff;
-    background: linear-gradient(transparent, rgba(0,0,0,0.65));
-    pointer-events: none;
+  .car-nav:hover { background: rgba(0,0,0,0.7); }
+  .car-nav.prev { left: 10px; }
+  .car-nav.next { right: 10px; }
+  .car-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; margin-top: 8px; min-height: 22px;
   }
-  .placeholder {
-    position: absolute; inset: 0; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; gap: 8px;
-    color: var(--muted); font-size: 0.88rem; text-align: center; padding: 16px;
+  .car-caption { font-size: 0.83rem; color: var(--muted); }
+  .car-dots { display: flex; gap: 6px; flex-shrink: 0; }
+  .car-dots button {
+    width: 9px; height: 9px; border-radius: 50%; border: 0; cursor: pointer;
+    background: var(--line); padding: 0;
   }
-  .placeholder svg { opacity: 0.45; }
+  .car-dots button.active { background: var(--accent); }
 
   .about-grid { display: grid; grid-template-columns: 1fr; gap: 28px; }
   @media (min-width: 720px) { .about-grid { grid-template-columns: 3fr 2fr; } }
@@ -136,7 +138,7 @@
   .skill-group h3 { font-size: 0.98rem; margin-bottom: 8px; }
   .skill-group p { color: var(--muted); font-size: 0.93rem; }
 
-  .media-stack img:not(a img) { cursor: zoom-in; }
+  .carousel img:not(a img) { cursor: zoom-in; }
   .lightbox {
     position: fixed; inset: 0; z-index: 100; display: none;
     align-items: center; justify-content: center;
@@ -172,7 +174,7 @@
 
   <section id="work">
     <h2>Selected Work</h2>
-    <p class="featured-caption" style="margin: -18px 0 30px;">
+    <p class="section-note">
       Sensori Robotics project footage appears courtesy of the company. All videos are silent.
     </p>
 
@@ -187,21 +189,19 @@
         </p>
         <p>
           I generate URDF/USD assets straight from the Onshape assembly for a high-fidelity Isaac Lab digital
-          twin. The main video shows our custom variant performing vial placement.
+          twin. The video shows our custom variant performing vial placement.
         </p>
         <div class="tags">
           <span>Onshape</span><span>Isaac Lab</span><span>IsaacTeleop</span><span>GR00T</span><span>Imitation Learning</span>
         </div>
       </div>
-      <div class="media-stack">
-        <figure class="media-main">
-          <video src="assets/vial-stack.mp4" poster="assets/vial-stack-poster.jpg" controls muted playsinline preload="metadata"></video>
-          <figcaption>Custom OpenArm variant — autonomous vial placement</figcaption>
-        </figure>
-        <div class="thumbs">
-          <figure class="thumb"><img src="assets/yuri-render.jpg" alt="Rendered CAD assembly of the Yuri bimanual robot" loading="lazy"><figcaption>Full assembly render</figcaption></figure>
-          <figure class="thumb"><img src="assets/yuri-photo.jpg" alt="The physical Yuri bimanual robot" loading="lazy"><figcaption>The real robot</figcaption></figure>
+      <div class="media-block">
+        <div class="carousel">
+          <div class="slide" data-caption="Custom OpenArm variant — autonomous vial placement"><video src="assets/vial-stack.mp4" poster="assets/vial-stack-poster.jpg" controls muted playsinline preload="metadata"></video></div>
+          <div class="slide" data-caption="Full assembly render"><img src="assets/yuri-render.jpg" alt="Rendered CAD assembly of the Yuri bimanual robot" loading="lazy"></div>
+          <div class="slide" data-caption="The real robot"><img src="assets/yuri-photo.jpg" alt="The physical Yuri bimanual robot" loading="lazy"></div>
         </div>
+        <div class="car-footer"><span class="car-caption"></span><div class="car-dots"></div></div>
       </div>
     </div>
 
@@ -214,7 +214,7 @@
           demonstrations with the stock OpenArm, and use it to fine-tune and evaluate robot foundation models.
         </p>
         <p>
-          The main video shows <strong>autonomous pick-and-place with a GR00T N1.7 policy on a Unitree G1</strong>.
+          The first video shows <strong>autonomous pick-and-place with a GR00T N1.7 policy on a Unitree G1</strong>.
           For longer-horizon, medium-complexity tasks we're evaluating world-action-model architectures, where
           short-horizon VLA policies start to break down.
         </p>
@@ -222,14 +222,12 @@
           <span>Isaac Sim</span><span>Teleoperation</span><span>GR00T N1.7</span><span>Unitree G1</span><span>World Models</span>
         </div>
       </div>
-      <div class="media-stack">
-        <figure class="media-main">
-          <video src="assets/g1-groot-pick-place.mp4" poster="assets/g1-groot-pick-place-poster.jpg" controls muted playsinline preload="metadata"></video>
-          <figcaption>GR00T N1.7 policy — autonomous pick-and-place on Unitree G1</figcaption>
-        </figure>
-        <div class="thumbs">
-          <figure class="thumb"><video src="assets/teleop-stacking.mp4" poster="assets/teleop-stacking-poster.jpg" controls muted playsinline preload="metadata"></video><figcaption>Teleop stacking demo — stock OpenArm</figcaption></figure>
+      <div class="media-block">
+        <div class="carousel">
+          <div class="slide" data-caption="GR00T N1.7 policy — autonomous pick-and-place on Unitree G1"><video src="assets/g1-groot-pick-place.mp4" poster="assets/g1-groot-pick-place-poster.jpg" controls muted playsinline preload="metadata"></video></div>
+          <div class="slide" data-caption="Teleop stacking demo — stock OpenArm in Isaac Sim"><video src="assets/teleop-stacking.mp4" poster="assets/teleop-stacking-poster.jpg" controls muted playsinline preload="metadata"></video></div>
         </div>
+        <div class="car-footer"><span class="car-caption"></span><div class="car-dots"></div></div>
       </div>
     </div>
 
@@ -252,16 +250,14 @@
           <span>ROS 2</span><span>YOLO</span><span>Jetson Orin</span><span>Unitree Go2W</span><span>Isaac Lab</span>
         </div>
       </div>
-      <div class="media-stack">
-        <figure class="media-main">
-          <video src="assets/go2w-blower.mp4" poster="assets/go2w-blower-poster.jpg" controls muted playsinline preload="metadata"></video>
-          <figcaption>Autonomous lawn-blowing on the Go2W quadruped</figcaption>
-        </figure>
-        <div class="thumbs">
-          <figure class="thumb"><img src="assets/mower.jpg" alt="Autonomous lawnmower" loading="lazy"><figcaption>The autonomous lawnmower</figcaption></figure>
-          <figure class="thumb"><video src="assets/go2w-locomotion.mp4" poster="assets/go2w-locomotion-poster.jpg" controls muted playsinline preload="metadata"></video><figcaption>Recreated locomotion policy in sim</figcaption></figure>
-          <figure class="thumb"><video src="assets/edge-mowing.mp4" poster="assets/edge-mowing-poster.jpg" controls muted playsinline preload="metadata"></video><figcaption>Procedural edge-mowing proof of concept</figcaption></figure>
+      <div class="media-block">
+        <div class="carousel">
+          <div class="slide" data-caption="Autonomous lawn-blowing on the Go2W quadruped"><video src="assets/go2w-blower.mp4" poster="assets/go2w-blower-poster.jpg" controls muted playsinline preload="metadata"></video></div>
+          <div class="slide" data-caption="The autonomous lawnmower"><img src="assets/mower.jpg" alt="Autonomous lawnmower" loading="lazy"></div>
+          <div class="slide" data-caption="Recreated Go2W locomotion policy in simulation"><video src="assets/go2w-locomotion.mp4" poster="assets/go2w-locomotion-poster.jpg" controls muted playsinline preload="metadata"></video></div>
+          <div class="slide" data-caption="Procedural edge-mowing proof of concept"><video src="assets/edge-mowing.mp4" poster="assets/edge-mowing-poster.jpg" controls muted playsinline preload="metadata"></video></div>
         </div>
+        <div class="car-footer"><span class="car-caption"></span><div class="car-dots"></div></div>
       </div>
     </div>
 
@@ -282,15 +278,13 @@
           <a href="assets/controller-wiring.pdf" target="_blank" rel="noopener">Controller wiring diagram (PDF)</a>
         </div>
       </div>
-      <div class="media-stack">
-        <figure class="media-main">
-          <video src="assets/mecanum-demo.mp4" poster="assets/mecanum-demo-poster.jpg" controls muted playsinline preload="metadata"></video>
-          <figcaption>Mecanum robot driven by the custom wireless controller</figcaption>
-        </figure>
-        <div class="thumbs">
-          <figure class="thumb"><a href="assets/robot-wiring.pdf" target="_blank" rel="noopener"><img src="assets/mecanum-wiring.jpg" alt="Mecanum robot wiring diagram" loading="lazy"></a><figcaption>Robot wiring — click for PDF</figcaption></figure>
-          <figure class="thumb"><a href="assets/controller-wiring.pdf" target="_blank" rel="noopener"><img src="assets/controller-wiring.jpg" alt="Wireless controller wiring diagram" loading="lazy"></a><figcaption>Controller wiring — click for PDF</figcaption></figure>
+      <div class="media-block">
+        <div class="carousel">
+          <div class="slide" data-caption="Mecanum robot driven by the custom wireless controller"><video src="assets/mecanum-demo.mp4" poster="assets/mecanum-demo-poster.jpg" controls muted playsinline preload="metadata"></video></div>
+          <div class="slide contain" data-caption="Robot wiring diagram — click to open PDF"><a href="assets/robot-wiring.pdf" target="_blank" rel="noopener"><img src="assets/mecanum-wiring.jpg" alt="Mecanum robot wiring diagram" loading="lazy"></a></div>
+          <div class="slide contain" data-caption="Controller wiring diagram — click to open PDF"><a href="assets/controller-wiring.pdf" target="_blank" rel="noopener"><img src="assets/controller-wiring.jpg" alt="Wireless controller wiring diagram" loading="lazy"></a></div>
         </div>
+        <div class="car-footer"><span class="car-caption"></span><div class="car-dots"></div></div>
       </div>
     </div>
 
@@ -326,11 +320,11 @@
           <a href="assets/hfcwo-presentation.pdf" target="_blank" rel="noopener">Final presentation (PDF)</a>
         </div>
       </div>
-      <div class="media-stack">
-        <figure class="media-main">
-          <a href="assets/hfcwo-presentation.pdf" target="_blank" rel="noopener"><img src="assets/hfcwo.jpg" alt="HFCWO final presentation title slide" loading="lazy"></a>
-          <figcaption>Final presentation — click to open PDF</figcaption>
-        </figure>
+      <div class="media-block">
+        <div class="carousel">
+          <div class="slide contain" data-caption="Final presentation — click to open PDF"><a href="assets/hfcwo-presentation.pdf" target="_blank" rel="noopener"><img src="assets/hfcwo.jpg" alt="HFCWO final presentation title slide" loading="lazy"></a></div>
+        </div>
+        <div class="car-footer"><span class="car-caption"></span><div class="car-dots"></div></div>
       </div>
     </div>
 
@@ -370,7 +364,7 @@
       </div>
       <div class="skill-group">
         <h3>Robotics &amp; Simulation</h3>
-        <p>ROS 2, NVIDIA Isaac Sim / Isaac Lab, URDF, USD, computer vision (YOLO), CAN bus, kinematics</p>
+        <p>ROS 2, NVIDIA Isaac Sim / Isaac Lab, URDF, USD, computer vision (YOLO), kinematics</p>
       </div>
       <div class="skill-group">
         <h3>Mechanical</h3>
@@ -399,11 +393,51 @@
 </div>
 
 <div class="lightbox" id="lightbox" aria-hidden="true"><img alt=""></div>
+
 <script>
+  // Carousel: one full-size frame per card; arrows + dots only when there are multiple slides.
+  document.querySelectorAll('.media-block').forEach(block => {
+    const carousel = block.querySelector('.carousel');
+    const slides = [...carousel.querySelectorAll('.slide')];
+    const caption = block.querySelector('.car-caption');
+    const dotsBox = block.querySelector('.car-dots');
+    let current = 0;
+
+    const show = i => {
+      current = (i + slides.length) % slides.length;
+      slides.forEach((s, j) => {
+        s.classList.toggle('active', j === current);
+        s.querySelectorAll('video').forEach(v => { if (j !== current) v.pause(); });
+      });
+      caption.textContent = slides[current].dataset.caption || '';
+      dotsBox.querySelectorAll('button').forEach((d, j) => d.classList.toggle('active', j === current));
+    };
+
+    if (slides.length > 1) {
+      slides.forEach((_, j) => {
+        const dot = document.createElement('button');
+        dot.setAttribute('aria-label', 'Slide ' + (j + 1));
+        dot.addEventListener('click', () => show(j));
+        dotsBox.appendChild(dot);
+      });
+      const mk = (cls, txt, step) => {
+        const b = document.createElement('button');
+        b.className = 'car-nav ' + cls; b.innerHTML = txt;
+        b.setAttribute('aria-label', step > 0 ? 'Next' : 'Previous');
+        b.addEventListener('click', () => show(current + step));
+        carousel.appendChild(b);
+      };
+      mk('prev', '&#8249;', -1);
+      mk('next', '&#8250;', 1);
+    }
+    show(0);
+  });
+
+  // Lightbox: click a photo to view fullscreen (images that link to PDFs keep their link).
   const lb = document.getElementById('lightbox');
   const lbImg = lb.querySelector('img');
-  document.querySelectorAll('.media-stack img').forEach(img => {
-    if (img.closest('a')) return; // images that link to PDFs keep their link behavior
+  document.querySelectorAll('.carousel img').forEach(img => {
+    if (img.closest('a')) return;
     img.addEventListener('click', () => {
       lbImg.src = img.src; lbImg.alt = img.alt;
       lb.classList.add('open'); lb.setAttribute('aria-hidden', 'false');
