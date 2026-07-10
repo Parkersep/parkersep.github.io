@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parker Sepulvado — Robotics Engineer</title>
+<meta name="description" content="Robotics engineer building bimanual manipulation platforms and sim-to-real pipelines: mechanical design, ROS 2, NVIDIA Isaac Lab/Sim, teleoperation data collection, and VLA fine-tuning.">
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root {
+    --bg: #fafaf8;
+    --surface: #ffffff;
+    --text: #1a1a1a;
+    --muted: #5c5c57;
+    --line: #e4e4df;
+    --accent: #8a3324;
+    --accent-soft: #f3e8e5;
+    --radius: 10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #141412;
+      --surface: #1d1d1a;
+      --text: #ececea;
+      --muted: #a3a39c;
+      --line: #2c2c28;
+      --accent: #e0704f;
+      --accent-soft: #2b201c;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+  header { padding: 88px 0 56px; }
+  .kicker {
+    font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); font-weight: 600; margin-bottom: 14px;
+  }
+  h1 { font-size: clamp(2.1rem, 5.5vw, 3.1rem); line-height: 1.12; letter-spacing: -0.02em; margin-bottom: 18px; }
+  .lede { font-size: 1.12rem; color: var(--muted); max-width: 620px; margin-bottom: 28px; }
+  .lede strong { color: var(--text); font-weight: 600; }
+  .links { display: flex; flex-wrap: wrap; gap: 10px; }
+  .links a {
+    display: inline-block; padding: 9px 16px; border-radius: 999px;
+    border: 1px solid var(--line); background: var(--surface);
+    color: var(--text); text-decoration: none; font-size: 0.92rem; font-weight: 500;
+    transition: border-color .15s, transform .15s;
+  }
+  .links a:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .links a.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  section { padding: 44px 0; border-top: 1px solid var(--line); }
+  h2 {
+    font-size: 0.85rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted); font-weight: 600; margin-bottom: 30px;
+  }
+
+  .project { display: grid; grid-template-columns: 1fr; gap: 18px; margin-bottom: 52px; }
+  .project:last-child { margin-bottom: 0; }
+  @media (min-width: 720px) {
+    .project { grid-template-columns: 5fr 4fr; gap: 32px; align-items: start; }
+    .project.flip .media-slot { order: -1; }
+  }
+  .project h3 { font-size: 1.28rem; letter-spacing: -0.01em; margin-bottom: 4px; }
+  .meta { font-size: 0.85rem; color: var(--accent); font-weight: 600; margin-bottom: 12px; }
+  .project p { color: var(--muted); font-size: 0.98rem; margin-bottom: 12px; }
+  .project p strong { color: var(--text); font-weight: 600; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tags span {
+    font-size: 0.78rem; padding: 3px 10px; border-radius: 999px;
+    background: var(--accent-soft); color: var(--accent); font-weight: 500;
+  }
+
+  .media-slot {
+    border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line);
+    background: var(--surface); aspect-ratio: 16 / 10; position: relative;
+  }
+  .media-slot video, .media-slot img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .placeholder {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 8px;
+    color: var(--muted); font-size: 0.88rem; text-align: center; padding: 16px;
+  }
+  .placeholder svg { opacity: 0.45; }
+
+  .about-grid { display: grid; grid-template-columns: 1fr; gap: 28px; }
+  @media (min-width: 720px) { .about-grid { grid-template-columns: 3fr 2fr; } }
+  .about-grid p { color: var(--muted); margin-bottom: 14px; }
+  .about-grid p strong { color: var(--text); font-weight: 600; }
+  .fact-list { list-style: none; }
+  .fact-list li {
+    padding: 12px 0; border-bottom: 1px solid var(--line);
+    font-size: 0.95rem; color: var(--muted);
+  }
+  .fact-list li:first-child { padding-top: 0; }
+  .fact-list li strong { color: var(--text); font-weight: 600; display: block; font-size: 0.98rem; }
+
+  .skills { display: grid; grid-template-columns: 1fr; gap: 20px; }
+  @media (min-width: 720px) { .skills { grid-template-columns: 1fr 1fr; } }
+  .skill-group h3 { font-size: 0.98rem; margin-bottom: 8px; }
+  .skill-group p { color: var(--muted); font-size: 0.93rem; }
+
+  footer { padding: 56px 0 72px; border-top: 1px solid var(--line); }
+  footer h2 { margin-bottom: 14px; }
+  footer .big { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 8px; }
+  footer p { color: var(--muted); margin-bottom: 22px; max-width: 520px; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <div class="kicker">Robotics Engineer &middot; Dallas–Fort Worth, TX</div>
+    <h1>Parker Sepulvado</h1>
+    <p class="lede">
+      I take robots from <strong>CAD to deployed policy</strong> — mechanical design and BOM ownership,
+      digital twins in NVIDIA Isaac Sim/Isaac Lab, teleoperation data collection, and fine-tuning
+      Vision-Language-Action foundation models on real hardware.
+    </p>
+    <div class="links">
+      <a class="primary" href="mailto:parkerlsepulvado@gmail.com">Email me</a>
+      <a href="https://linkedin.com/in/parkersepulvado" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/Parkersep" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </header>
+
+  <section id="work">
+    <h2>Selected Work</h2>
+
+    <div class="project">
+      <div>
+        <h3>Bimanual Manipulation Platform</h3>
+        <div class="meta">Sensori Robotics &middot; 2026</div>
+        <p>
+          I own the <strong>mechanical design, assembly, and BOM</strong> for a bimanual robot built on the
+          open-source OpenArm design, shipping in 2026 — a complete desktop platform with onboard compute for
+          out-of-the-box teleoperation data collection and VLA fine-tuning.
+        </p>
+        <p>
+          I generate URDF/USD assets straight from the Onshape assembly for a high-fidelity Isaac Lab digital
+          twin, collect demonstrations through Meta Quest 3 teleoperation scaled with Isaac Mimic, and fine-tune
+          foundation models (NVIDIA GR00T, &pi;<sub>0</sub>, xVLA) for closed-loop evaluation in Isaac Sim.
+        </p>
+        <div class="tags">
+          <span>Onshape</span><span>Isaac Lab</span><span>IsaacTeleop</span><span>GR00T</span><span>Imitation Learning</span>
+        </div>
+      </div>
+      <div class="media-slot" data-video="assets/bimanual.mp4" data-image="assets/bimanual.jpg">
+        <div class="placeholder">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m10 9 5 3-5 3z"/></svg>
+          Demo video coming soon
+        </div>
+      </div>
+    </div>
+
+    <div class="project flip">
+      <div>
+        <h3>Autonomous Landscaping Robots</h3>
+        <div class="meta">Sensori Robotics &middot; 2025–2026</div>
+        <p>
+          During a year-long co-op I assembled and integrated Sensori's autonomous landscaping robot, delivered
+          <strong>live demonstrations to investors and partner executives</strong>, and validated systems in the
+          field with early customers.
+        </p>
+        <p>
+          I also built a separate autonomous lawn-blowing robot on a Unitree Go2W quadruped that assists
+          landscaping crews as they work — ROS 2, fine-tuned YOLO perception, containerized deployment on
+          Jetson Orin, with the locomotion policy recreated in Isaac Lab for sim validation before field runs.
+        </p>
+        <div class="tags">
+          <span>ROS 2</span><span>YOLO</span><span>Jetson Orin</span><span>Unitree Go2W</span><span>Isaac Sim</span>
+        </div>
+      </div>
+      <div class="media-slot" data-video="assets/quadruped.mp4" data-image="assets/quadruped.jpg">
+        <div class="placeholder">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m10 9 5 3-5 3z"/></svg>
+          Field footage coming soon
+        </div>
+      </div>
+    </div>
+
+    <div class="project">
+      <div>
+        <h3>Custom PCB &amp; Dual-Core Embedded Mecanum Robot</h3>
+        <div class="meta">Personal Project &middot; Fall 2025</div>
+        <p>
+          A ground-up mecanum robot: custom multi-layer motor control board, ultrasonic sensing, and
+          <strong>memory-safe async firmware in Rust</strong> on the Embassy runtime, running deterministic
+          1&nbsp;kHz control loops across dual ESP32-S3 cores over CAN bus.
+        </p>
+        <div class="tags">
+          <span>Rust</span><span>Embassy</span><span>ESP32-S3</span><span>CAN Bus</span>
+        </div>
+      </div>
+      <div class="media-slot" data-video="assets/mecanum.mp4" data-image="assets/mecanum.jpg">
+        <div class="placeholder">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m10 9 5 3-5 3z"/></svg>
+          Demo video coming soon
+        </div>
+      </div>
+    </div>
+
+    <div class="project flip">
+      <div>
+        <h3>Rocket Engine Flame Diverter</h3>
+        <div class="meta">Team Lead &middot; TAMU Rocket Engine Design Team &middot; 2025</div>
+        <p>
+          Led the sub-team designing the plume-deflection structure for static fires of an
+          <strong>1,860&nbsp;lbf liquid bipropellant rocket engine</strong> — transient thermal and structural
+          FEA in ANSYS to drive material selection and geometry for full-duration hot fires.
+        </p>
+        <div class="tags">
+          <span>ANSYS</span><span>Thermal FEA</span><span>Structural FEA</span><span>Leadership</span>
+        </div>
+      </div>
+      <div class="media-slot" data-video="assets/flame-diverter.mp4" data-image="assets/flame-diverter.jpg">
+        <div class="placeholder">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.5-3.5L6 23"/></svg>
+          Renders &amp; analysis images coming soon
+        </div>
+      </div>
+    </div>
+
+    <div class="project">
+      <div>
+        <h3>Wearable HFCWO Medical Device</h3>
+        <div class="meta">Project Lead &middot; Senior Capstone &middot; 2025–2026</div>
+        <p>
+          Led the capstone team re-engineering a pneumatic chest-wall-oscillation device,
+          <strong>cutting mass 67% (15&nbsp;lb &rarr; 5&nbsp;lb)</strong> by integrating radial blowers, custom
+          high-speed rotary valves, and electronics onto a wearable vest — with discrete-time PI control holding
+          a stable 1.6&nbsp;L/s flow rate.
+        </p>
+        <div class="tags">
+          <span>Pneumatics</span><span>PI Control</span><span>Arduino</span><span>Medical Device</span>
+        </div>
+      </div>
+      <div class="media-slot" data-video="assets/hfcwo.mp4" data-image="assets/hfcwo.jpg">
+        <div class="placeholder">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.5-3.5L6 23"/></svg>
+          Photos coming soon
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <section id="about">
+    <h2>About</h2>
+    <div class="about-grid">
+      <div>
+        <p>
+          I'm a robotics engineer at <strong>Sensori Robotics</strong> with a mechanical engineering foundation
+          from <strong>Texas A&amp;M</strong> (summa cum laude). I work across the full stack — mechanical design
+          in Onshape, ROS 2, Isaac Lab/Sim digital twins, teleoperation pipelines, and robot foundation models —
+          which means I can design the hardware, simulate it, collect the data, and train the policy that runs on it.
+        </p>
+        <p>
+          The summer after my sophomore year, I was selected for a fully funded 16-student nationwide cohort in an
+          Apple-sponsored machine learning program at USC, capped by a hand-picked research project on graph
+          recurrent neural networks presented to USC faculty and Apple engineers.
+        </p>
+      </div>
+      <ul class="fact-list">
+        <li><strong>Currently</strong>Robotics Engineer, Sensori Robotics</li>
+        <li><strong>Education</strong>B.S. Mechanical Engineering, Texas A&amp;M, 2026 — summa cum laude</li>
+        <li><strong>Research</strong>Apple-sponsored ML program, USC (2024)</li>
+        <li><strong>Focus</strong>Robot learning, sim-to-real, mechanical design</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <div class="skills">
+      <div class="skill-group">
+        <h3>Robot Learning</h3>
+        <p>Imitation learning, VLA fine-tuning (GR00T, &pi;<sub>0</sub>, xVLA), world models (WAM, JEPA), PyTorch, teleoperation, Isaac Mimic, sim-to-real transfer</p>
+      </div>
+      <div class="skill-group">
+        <h3>Robotics &amp; Simulation</h3>
+        <p>ROS 2, NVIDIA Isaac Sim / Isaac Lab, URDF, USD, computer vision (YOLO), CAN bus, kinematics</p>
+      </div>
+      <div class="skill-group">
+        <h3>Mechanical</h3>
+        <p>Onshape (version control &amp; release management), SolidWorks, ANSYS (thermal &amp; structural FEA), BOM management, rapid prototyping, DFA/DFM</p>
+      </div>
+      <div class="skill-group">
+        <h3>Software &amp; Hardware</h3>
+        <p>Python, C++, Rust, Docker, Linux, Git, Jetson Orin/AGX, ESP32-S3, Arduino</p>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <h2>Contact</h2>
+    <div class="big">Let's talk robots.</div>
+    <p>
+      I'm open to robotics and mechanical engineering roles. The fastest way to reach me is email —
+      I typically respond within a day.
+    </p>
+    <div class="links">
+      <a class="primary" href="mailto:parkerlsepulvado@gmail.com">parkerlsepulvado@gmail.com</a>
+      <a href="https://linkedin.com/in/parkersepulvado" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  // Each .media-slot declares data-video / data-image paths. If the file exists,
+  // swap it in; otherwise keep the "coming soon" placeholder.
+  document.querySelectorAll('.media-slot').forEach(slot => {
+    const videoSrc = slot.dataset.video;
+    const imageSrc = slot.dataset.image;
+    const tryImage = () => {
+      if (!imageSrc) return;
+      const img = new Image();
+      img.onload = () => {
+        img.alt = ''; img.loading = 'lazy';
+        slot.innerHTML = ''; slot.appendChild(img);
+      };
+      img.src = imageSrc;
+    };
+    if (videoSrc) {
+      fetch(videoSrc, { method: 'HEAD' }).then(r => {
+        if (r.ok) {
+          const v = document.createElement('video');
+          v.src = videoSrc; v.controls = true; v.muted = true;
+          v.playsInline = true; v.preload = 'metadata';
+          slot.innerHTML = ''; slot.appendChild(v);
+        } else { tryImage(); }
+      }).catch(tryImage);
+    } else { tryImage(); }
+  });
+</script>
+
+</body>
+</html>
