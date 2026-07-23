@@ -91,6 +91,7 @@
   .slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .slide video { width: 100%; height: 100%; object-fit: contain; background: #000; display: block; }
   .slide.contain img { object-fit: contain; background: #fff; }
+  .slide.contain-dark img { object-fit: contain; background: #0b0b0a; }
   .slide a { display: block; width: 100%; height: 100%; }
   .car-nav {
     position: absolute; top: 50%; transform: translateY(-50%); z-index: 5;
@@ -233,6 +234,33 @@
 
     <div class="project">
       <div>
+        <h3>Custom ESP32-S3 Teleoperation Dev Board</h3>
+        <div class="meta">Personal Project &middot; In Progress</div>
+        <p>
+          A <strong>from-scratch ESP32-S3 development board</strong> designed in KiCad — USB-C with
+          onboard voltage regulation, RST/BOOT buttons, an addressable RGB LED, and a broken-out GPIO /
+          display header, built around the ESP32-S3-WROOM module.
+        </p>
+        <p>
+          I'm actively expanding it with peripherals for <strong>different robotic teleoperation
+          scenarios</strong> — a reusable base board for driving leader-arm inputs, buttons, and sensors.
+        </p>
+        <div class="tags">
+          <span>KiCad</span><span>ESP32-S3</span><span>USB-C</span><span>PCB Design</span><span>Schematic Capture</span>
+        </div>
+      </div>
+      <div class="media-block">
+        <div class="carousel">
+          <div class="slide" data-caption="3D render of the assembled board"><img src="assets/esp32-board-3d.jpg" alt="3D render of the custom ESP32-S3 development board" loading="lazy"></div>
+          <div class="slide contain-dark" data-caption="PCB layout in KiCad"><img src="assets/esp32-board-layout.jpg" alt="KiCad PCB layout of the ESP32-S3 board" loading="lazy"></div>
+          <div class="slide contain-dark" data-caption="Schematic — USB-C, voltage regulator, ESP32-S3-WROOM, peripherals"><img src="assets/esp32-board-schematic.jpg" alt="Schematic of the ESP32-S3 board" loading="lazy"></div>
+        </div>
+        <div class="car-footer"><span class="car-caption"></span><div class="car-dots"></div></div>
+      </div>
+    </div>
+
+    <div class="project flip">
+      <div>
         <h3>Custom PCB Mecanum Robot &amp; Wireless Controller</h3>
         <div class="meta">Personal Project &middot; Fall 2025</div>
         <p>
@@ -258,7 +286,7 @@
       </div>
     </div>
 
-    <div class="project flip">
+    <div class="project">
       <div>
         <h3>Wearable HFCWO Medical Device</h3>
         <div class="meta">Project Lead &middot; Senior Capstone &middot; 2025–2026</div>
@@ -277,6 +305,7 @@
       </div>
       <div class="media-block">
         <div class="carousel">
+          <div class="slide" data-caption="Custom control PCB for the HFCWO device (3D render)"><img src="assets/hfcwo-pcb-3d.jpg" alt="3D render of the HFCWO device control PCB" loading="lazy"></div>
           <div class="slide contain" data-caption="Final presentation — click to open PDF"><a href="assets/hfcwo-presentation.pdf" target="_blank" rel="noopener"><img src="assets/hfcwo.jpg" alt="HFCWO final presentation title slide" loading="lazy"></a></div>
         </div>
         <div class="car-footer"><span class="car-caption"></span><div class="car-dots"></div></div>
